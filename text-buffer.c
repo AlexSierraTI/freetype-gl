@@ -308,12 +308,12 @@ text_buffer_add_char( text_buffer_t * self,
                          (float)(int)x1,y1,0,  s1,t1,  r,g,b,a,  x1-((int)x1), gamma );
         SET_GLYPH_VERTEX(vertices[vcount+3],
                          (float)(int)x1,y0,0,  s1,t0,  r,g,b,a,  x1-((int)x1), gamma );
-        indices[icount + 0] = vcount+0;
-        indices[icount + 1] = vcount+1;
-        indices[icount + 2] = vcount+2;
-        indices[icount + 3] = vcount+0;
-        indices[icount + 4] = vcount+2;
-        indices[icount + 5] = vcount+3;
+        indices[icount + 0] = (GLuint)vcount+0;
+        indices[icount + 1] = (GLuint)vcount+1;
+        indices[icount + 2] = (GLuint)vcount+2;
+        indices[icount + 3] = (GLuint)vcount+0;
+        indices[icount + 4] = (GLuint)vcount+2;
+        indices[icount + 5] = (GLuint)vcount+3;
         vcount += 4;
         icount += 6;
     }
@@ -342,12 +342,12 @@ text_buffer_add_char( text_buffer_t * self,
                          (float)(int)x1,y1,0,  s1,t1,  r,g,b,a,  x1-((int)x1), gamma );
         SET_GLYPH_VERTEX(vertices[vcount+3],
                          (float)(int)x1,y0,0,  s1,t0,  r,g,b,a,  x1-((int)x1), gamma );
-        indices[icount + 0] = vcount+0;
-        indices[icount + 1] = vcount+1;
-        indices[icount + 2] = vcount+2;
-        indices[icount + 3] = vcount+0;
-        indices[icount + 4] = vcount+2;
-        indices[icount + 5] = vcount+3;
+        indices[icount + 0] = (GLuint)vcount+0;
+        indices[icount + 1] = (GLuint)vcount+1;
+        indices[icount + 2] = (GLuint)vcount+2;
+        indices[icount + 3] = (GLuint)vcount+0;
+        indices[icount + 4] = (GLuint)vcount+2;
+        indices[icount + 5] = (GLuint)vcount+3;
         vcount += 4;
         icount += 6;
     }
@@ -375,12 +375,12 @@ text_buffer_add_char( text_buffer_t * self,
                          (float)(int)x1,y1,0,  s1,t1,  r,g,b,a,  x1-((int)x1), gamma );
         SET_GLYPH_VERTEX(vertices[vcount+3],
                          (float)(int)x1,y0,0,  s1,t0,  r,g,b,a,  x1-((int)x1), gamma );
-        indices[icount + 0] = vcount+0;
-        indices[icount + 1] = vcount+1;
-        indices[icount + 2] = vcount+2;
-        indices[icount + 3] = vcount+0;
-        indices[icount + 4] = vcount+2;
-        indices[icount + 5] = vcount+3;
+        indices[icount + 0] = (GLuint)vcount+0;
+        indices[icount + 1] = (GLuint)vcount+1;
+        indices[icount + 2] = (GLuint)vcount+2;
+        indices[icount + 3] = (GLuint)vcount+0;
+        indices[icount + 4] = (GLuint)vcount+2;
+        indices[icount + 5] = (GLuint)vcount+3;
         vcount += 4;
         icount += 6;
     }
@@ -408,12 +408,12 @@ text_buffer_add_char( text_buffer_t * self,
                          (float)(int)x1,y1,0,  s1,t1,  r,g,b,a,  x1-((int)x1), gamma );
         SET_GLYPH_VERTEX(vertices[vcount+3],
                          (float)(int)x1,y0,0,  s1,t0,  r,g,b,a,  x1-((int)x1), gamma );
-        indices[icount + 0] = vcount+0;
-        indices[icount + 1] = vcount+1;
-        indices[icount + 2] = vcount+2;
-        indices[icount + 3] = vcount+0;
-        indices[icount + 4] = vcount+2;
-        indices[icount + 5] = vcount+3;
+        indices[icount + 0] = (GLuint)vcount+0;
+        indices[icount + 1] = (GLuint)vcount+1;
+        indices[icount + 2] = (GLuint)vcount+2;
+        indices[icount + 3] = (GLuint)vcount+0;
+        indices[icount + 4] = (GLuint)vcount+2;
+        indices[icount + 5] = (GLuint)vcount+3;
         vcount += 4;
         icount += 6;
     }
@@ -440,12 +440,12 @@ text_buffer_add_char( text_buffer_t * self,
                          (float)(int)x1,y1,0,  s1,t1,  r,g,b,a,  x1-((int)x1), gamma );
         SET_GLYPH_VERTEX(vertices[vcount+3],
                          (float)(int)x1,y0,0,  s1,t0,  r,g,b,a,  x1-((int)x1), gamma );
-        indices[icount + 0] = vcount+0;
-        indices[icount + 1] = vcount+1;
-        indices[icount + 2] = vcount+2;
-        indices[icount + 3] = vcount+0;
-        indices[icount + 4] = vcount+2;
-        indices[icount + 5] = vcount+3;
+        indices[icount + 0] = (GLuint)vcount+0;
+        indices[icount + 1] = (GLuint)vcount+1;
+        indices[icount + 2] = (GLuint)vcount+2;
+        indices[icount + 3] = (GLuint)vcount+0;
+        indices[icount + 4] = (GLuint)vcount+2;
+        indices[icount + 5] = (GLuint)vcount+3;
         vcount += 4;
         icount += 6;
 

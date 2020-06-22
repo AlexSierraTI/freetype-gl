@@ -63,7 +63,7 @@ texture_font_load_face(texture_font_t *self, float size,
 
     case TEXTURE_FONT_MEMORY:
         error = FT_New_Memory_Face(*library,
-            self->memory.base, self->memory.size, 0, face);
+            self->memory.base, (FT_Long)self->memory.size, 0, face);
         break;
     }
 
@@ -606,14 +606,14 @@ cleanup_stroker:
     for( i = 0; i < src_h; i++ )
     {
         //difference between width and pitch: https://www.freetype.org/freetype2/docs/reference/ft2-basic_types.html#FT_Bitmap
-        memcpy( dst_ptr, src_ptr, ft_bitmap.width);
+        if (dst_ptr != 0) memcpy( dst_ptr, src_ptr, ft_bitmap.width);
         dst_ptr += tgt_w * self->atlas->depth;
         src_ptr += ft_bitmap.pitch;
     }
 
     if( self->rendermode == RENDER_SIGNED_DISTANCE_FIELD )
     {
-        unsigned char *sdf = make_distance_mapb( buffer, tgt_w, tgt_h );
+        unsigned char *sdf = make_distance_mapb( buffer, (unsigned int)tgt_w, (unsigned int)tgt_h );
         free( buffer );
         buffer = sdf;
     }
@@ -659,7 +659,7 @@ size_t
 texture_font_load_glyphs( texture_font_t * self,
                           const char * codepoints )
 {
-    size_t i, c;
+    size_t i;
 
     /* Load each glyph */
     for( i = 0; i < strlen(codepoints); i += utf8_surrogate_len(codepoints + i) ) {
@@ -717,9 +717,9 @@ texture_font_enlarge_atlas( texture_font_t * self, size_t width_new,
     if( width_new > width_old )
     {
         ivec3 node;
-        node.x = width_old - 1;
+        node.x = (int)width_old - 1;
         node.y = 1;
-        node.z = width_new - width_old;
+        node.z = (int)width_new - (int)width_old;
         vector_push_back(ta->nodes, &node);
     }
     //copy over data from the old buffer, skipping first row and column because of the margin

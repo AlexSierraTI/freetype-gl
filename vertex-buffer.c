@@ -73,15 +73,15 @@ vertex_buffer_new( const char *format )
         case GL_FLOAT:          attribute_size = sizeof(GLfloat); break;
         default:                attribute_size = 0;
         }
-        stride  += attribute->size*attribute_size;
-        pointer += attribute->size*attribute_size;
+        stride  += (size_t)attribute->size*(size_t)attribute_size;
+        pointer += (size_t)attribute->size*(size_t)attribute_size;
         self->attributes[index] = attribute;
         index++;
     } while ( end && (index < MAX_VERTEX_ATTRIBUTE) );
 
     for( i=0; i<index; ++i )
     {
-        self->attributes[i]->stride = stride;
+        self->attributes[i]->stride = (GLsizei)stride;
     }
 
 #ifdef FREETYPE_GL_USE_VAO
@@ -195,7 +195,7 @@ vertex_buffer_print( vertex_buffer_t * self )
 
     assert(self);
 
-    fprintf( stderr, "%ld vertices, %ld indices\n",
+    fprintf( stderr, "%zd vertices, %zd indices\n",
              vector_size( self->vertices ), vector_size( self->indices ) );
     while( self->attributes[i] )
     {
@@ -417,13 +417,13 @@ vertex_buffer_render_item ( vertex_buffer_t *self,
     {
         size_t start = item->istart;
         size_t count = item->icount;
-        glDrawElements( self->mode, count, GL_UNSIGNED_INT, (void *)(start*sizeof(GLuint)) );
+        glDrawElements( self->mode, (GLsizei)count, GL_UNSIGNED_INT, (void *)(start*sizeof(GLuint)) );
     }
     else if( self->vertices->size )
     {
         size_t start = item->vstart;
         size_t count = item->vcount;
-        glDrawArrays( self->mode, start*self->vertices->item_size, count);
+        glDrawArrays( self->mode, (GLint)(start*self->vertices->item_size), (GLsizei)count);
     }
 }
 
@@ -438,11 +438,11 @@ vertex_buffer_render ( vertex_buffer_t *self, GLenum mode )
     vertex_buffer_render_setup( self, mode );
     if( icount )
     {
-        glDrawElements( mode, icount, GL_UNSIGNED_INT, 0 );
+        glDrawElements( mode, (GLsizei)icount, GL_UNSIGNED_INT, 0 );
     }
     else
     {
-        glDrawArrays( mode, 0, vcount );
+        glDrawArrays( mode, 0, (GLsizei)vcount );
     }
     vertex_buffer_render_finish( self );
 }
@@ -512,7 +512,7 @@ vertex_buffer_insert_vertices( vertex_buffer_t *self,
     {
         if( *(GLuint *)(vector_get( self->indices, i )) > index )
         {
-            *(GLuint *)(vector_get( self->indices, i )) += index;
+            *(GLuint *)(vector_get( self->indices, i )) += (GLuint)index;
         }
     }
 
@@ -556,7 +556,7 @@ vertex_buffer_erase_vertices( vertex_buffer_t *self,
     {
         if( *(GLuint *)(vector_get( self->indices, i )) > first )
         {
-            *(GLuint *)(vector_get( self->indices, i )) -= (last-first);
+            *(GLuint *)(vector_get( self->indices, i )) -= (GLuint)(last-first);
         }
     }
     vector_erase_range( self->vertices, first, last );
@@ -599,14 +599,14 @@ vertex_buffer_insert( vertex_buffer_t * self, const size_t index,
     // Update indices within the vertex buffer
     for( i=0; i<icount; ++i )
     {
-        *(GLuint *)(vector_get( self->indices, istart+i )) += vstart;
+        *(GLuint *)(vector_get( self->indices, istart+i )) += (GLuint)vstart;
     }
 
     // Insert item
-    item.x = vstart;
-    item.y = vcount;
-    item.z = istart;
-    item.w = icount;
+    item.x = (int)vstart;
+    item.y = (int)vcount;
+    item.z = (int)istart;
+    item.w = (int)icount;
     vector_insert( self->items, index, &item );
 
     self->state = DIRTY;
@@ -637,8 +637,8 @@ vertex_buffer_erase( vertex_buffer_t * self,
         ivec4 * item = (ivec4 *) vector_get( self->items, i );
         if( item->vstart > vstart)
         {
-            item->vstart -= vcount;
-            item->istart -= icount;
+            item->vstart -= (int)vcount;
+            item->istart -= (int)icount;
         }
     }
 
